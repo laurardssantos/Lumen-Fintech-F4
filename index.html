@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lúmen Fintech</title>
+
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo-area">
+            <img src="./images/logo-lumen.png" alt="Logo Lúmen" class="logo-img">
+        </div>
+
+        <div class="header-content">
+            <nav class="menu">
+                <a href="#">Relatórios</a>
+                <a href="#">Configurações</a>
+            </nav>
+
+            <div class="user-box">
+                <img src="https://i.pravatar.cc/80?img=5" alt="Foto do usuário" class="avatar-img">
+
+                <div>
+                    <p class="user-name">Laura Santos</p>
+                    <p class="user-status">Conectado</p>
+                </div>
+            </div>
+
+            <input class="search" type="text" placeholder="Search in site">
+
+            <a href="index.html" class="nav-icon nav-home">⌂</a>
+            <a href="#" class="nav-icon nav-close">×</a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section>
+            <h1 class="titulo">Relatórios Financeiros</h1>
+        </section>
+
+        <section class="filtros">
+            <div class="filtro-grupo">
+                <label>Data Inicial</label>
+
+                <select>
+                    <option>Set</option>
+                    <option>Out</option>
+                    <option>Nov</option>
+                </select>
+
+                <select>
+                    <option>2025</option>
+                    <option>2026</option>
+                </select>
+            </div>
+
+            <div class="filtro-grupo">
+                <label>Data Final</label>
+
+                <select>
+                    <option>Set</option>
+                    <option>Out</option>
+                    <option>Nov</option>
+                </select>
+
+                <select>
+                    <option>2025</option>
+                    <option>2026</option>
+                </select>
+            </div>
+
+            <button class="btn">Filtrar</button>
+            <button class="btn btn-ir">Resumo Anual IR</button>
+        </section>
+
+        <section class="cards">
+            <div class="card">
+                <h2>Distribuição por Categoria</h2>
+
+                <div class="grafico-container">
+                    <div class="grafico-area">
+                        <div class="grafico grafico-padrao"></div>
+                    </div>
+
+                    <div class="legenda-grafico">
+                        <p class="legenda-item item-alimentacao">
+                            <span class="cor alimentacao"></span>
+                            Alimentação — R$330,00
+                        </p>
+
+                        <p class="legenda-item item-saude">
+                            <span class="cor saude"></span>
+                            Saúde — R$280,00
+                        </p>
+
+                        <p class="legenda-item item-transporte">
+                            <span class="cor transporte"></span>
+                            Transporte — R$805,00
+                        </p>
+
+                        <p class="legenda-item item-entretenimento">
+                            <span class="cor entretenimento"></span>
+                            Entretenimento — R$80,00
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Total por Categoria</h2>
+
+                <div class="lista-categorias">
+                    <p><strong>Alimentação</strong> — R$330,00</p>
+                    <p><strong>Saúde</strong> — R$280,00</p>
+                    <p><strong>Transporte</strong> — R$805,00</p>
+                    <p><strong>Entretenimento</strong> — R$80,00</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="resumo">
+            <h2>Resumo Geral dos Gastos</h2>
+
+            <div class="cards resumo-cards">
+                <div class="card">
+                    <p>Total Gastos</p>
+                    <p class="valor">R$ 1.495</p>
+                </div>
+
+                <div class="card">
+                    <p>Média Semanal</p>
+                    <p class="valor">R$ 498,33</p>
+                </div>
+
+                <div class="card">
+                    <p>Gastos em Alta</p>
+                    <p class="valor">Transporte</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
