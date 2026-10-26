@@ -51,35 +51,25 @@
             <div class="filtro-grupo">
                 <label>Data Inicial</label>
 
-                <select>
-                    <option>Set</option>
-                    <option>Out</option>
-                    <option>Nov</option>
+                <select id="mesInicial" aria-label="Mês inicial">
+                    <option value="0">Jan</option><option value="1">Fev</option><option value="2">Mar</option><option value="3">Abr</option><option value="4">Mai</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Ago</option><option value="8" selected>Set</option><option value="9">Out</option><option value="10">Nov</option><option value="11">Dez</option>
                 </select>
 
-                <select>
-                    <option>2025</option>
-                    <option>2026</option>
-                </select>
+                <select id="anoInicial" aria-label="Ano inicial"><option>2025</option><option selected>2026</option></select>
             </div>
 
             <div class="filtro-grupo">
                 <label>Data Final</label>
 
-                <select>
-                    <option>Set</option>
-                    <option>Out</option>
-                    <option>Nov</option>
+                <select id="mesFinal" aria-label="Mês final">
+                    <option value="0">Jan</option><option value="1">Fev</option><option value="2">Mar</option><option value="3">Abr</option><option value="4">Mai</option><option value="5">Jun</option><option value="6">Jul</option><option value="7">Ago</option><option value="8">Set</option><option value="9" selected>Out</option><option value="10">Nov</option><option value="11">Dez</option>
                 </select>
 
-                <select>
-                    <option>2025</option>
-                    <option>2026</option>
-                </select>
+                <select id="anoFinal" aria-label="Ano final"><option>2025</option><option selected>2026</option></select>
             </div>
 
-            <button class="btn">Filtrar</button>
-            <button class="btn btn-ir">Resumo Anual IR</button>
+            <button class="btn" id="btnFiltrar" type="button">Filtrar</button>
+            <button class="btn btn-ir" id="btnResumoAnual" type="button">Resumo Anual IR</button>
         </section>
 
         <section class="cards">
@@ -88,42 +78,17 @@
 
                 <div class="grafico-container">
                     <div class="grafico-area">
-                        <div class="grafico grafico-padrao"></div>
+                        <div class="grafico grafico-padrao" id="graficoCategorias" role="img" aria-label="Distribuição de despesas por categoria"></div>
                     </div>
 
-                    <div class="legenda-grafico">
-                        <p class="legenda-item item-alimentacao">
-                            <span class="cor alimentacao"></span>
-                            Alimentação — R$330,00
-                        </p>
-
-                        <p class="legenda-item item-saude">
-                            <span class="cor saude"></span>
-                            Saúde — R$280,00
-                        </p>
-
-                        <p class="legenda-item item-transporte">
-                            <span class="cor transporte"></span>
-                            Transporte — R$805,00
-                        </p>
-
-                        <p class="legenda-item item-entretenimento">
-                            <span class="cor entretenimento"></span>
-                            Entretenimento — R$80,00
-                        </p>
-                    </div>
+                    <div class="legenda-grafico" id="legendaCategorias"><p>Carregando dados...</p></div>
                 </div>
             </div>
 
             <div class="card">
                 <h2>Total por Categoria</h2>
 
-                <div class="lista-categorias">
-                    <p><strong>Alimentação</strong> — R$330,00</p>
-                    <p><strong>Saúde</strong> — R$280,00</p>
-                    <p><strong>Transporte</strong> — R$805,00</p>
-                    <p><strong>Entretenimento</strong> — R$80,00</p>
-                </div>
+                <div class="lista-categorias" id="listaCategorias"><p>Carregando dados...</p></div>
             </div>
         </section>
 
@@ -133,22 +98,24 @@
             <div class="cards resumo-cards">
                 <div class="card">
                     <p>Total Gastos</p>
-                    <p class="valor">R$ 1.495</p>
+                    <p class="valor" id="totalGastos">—</p>
                 </div>
 
                 <div class="card">
                     <p>Média Semanal</p>
-                    <p class="valor">R$ 498,33</p>
+                    <p class="valor" id="mediaSemanal">—</p>
                 </div>
 
                 <div class="card">
                     <p>Gastos em Alta</p>
-                    <p class="valor">Transporte</p>
+                    <p class="valor" id="gastoEmAlta">—</p>
                 </div>
             </div>
         </section>
 
+        <p id="statusApi" class="status-api" role="status">Conectando à API...</p>
     </main>
 
+    <script src="./js/script.js"></script>
 </body>
 </html>
