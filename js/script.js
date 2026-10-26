@@ -1,8 +1,6 @@
 ```javascript
 const API_URL = "http://localhost:8080/api/transacoes";
-
 const cores = ["#7c3aed", "#ec4899", "#f59e0b", "#10b981", "#3b82f6", "#ef4444"];
-
 let transacoes = [];
 
 const elemento = (id) => document.getElementById(id);
@@ -27,7 +25,6 @@ function obterData(transacao) {
     const valor = obterCampo(transacao, [
         "dataTransacao", "DATA_TRANSACAO", "data", "DATA"
     ]);
-
     if (!valor) return null;
 
     const data = new Date(valor);
@@ -46,11 +43,8 @@ function obterTipo(transacao) {
 }
 
 function ehDespesa(transacao) {
-    const tipo = obterTipo(transacao);
-
-    return [
-        "DESPESA", "SAIDA", "SAÍDA", "D", "EXPENSE"
-    ].includes(tipo);
+    return ["DESPESA", "SAIDA", "SAÍDA", "D", "EXPENSE"]
+        .includes(obterTipo(transacao));
 }
 
 function obterCategoria(transacao) {
@@ -58,13 +52,11 @@ function obterCategoria(transacao) {
         "nomeCategoria", "NOME_CATEGORIA",
         "categoriaNome", "CATEGORIA_NOME"
     ]);
-
     if (nome) return String(nome);
 
     const id = obterCampo(transacao, [
         "idCategoria", "ID_CATEGORIA", "categoriaId"
     ]);
-
     return id !== null ? `Categoria ${id}` : "Sem categoria";
 }
 
@@ -79,26 +71,30 @@ function obterTransacoesFiltradas() {
 
     return transacoes.filter((transacao) => {
         const data = obterData(transacao);
-
-        return data &&
-            data >= inicio &&
-            data <= fim &&
-            ehDespesa(transacao);
+        return data && data >= inicio && data <= fim && ehDespesa(transacao);
     });
+}
+
+function escaparHtml(valor) {
+    return String(valor).replace(/[&<>"']/g, caractere => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[caractere]);
 }
 
 function renderizarRelatorio() {
     const filtradas = obterTransacoesFiltradas();
     const totais = {};
 
-    filtradas.forEach((transacao) => {
+    filtradas.forEach(transacao => {
         const categoria = obterCategoria(transacao);
         totais[categoria] = (totais[categoria] || 0) + Math.abs(obterValor(transacao));
     });
 
-    const categorias = Object.entries(totais)
-        .sort((a, b) => b[1] - a[1]);
-
+    const categorias = Object.entries(totais).sort((a, b) => b[1] - a[1]);
     const total = categorias.reduce((soma, item) => soma + item[1], 0);
 
     elemento("totalGastos").textContent = formatarMoeda(total);
@@ -131,17 +127,12 @@ function renderizarRelatorio() {
           `).join("")
         : "<p>Sem dados para exibir.</p>";
 
-    const gradientes = [];
     let acumulado = 0;
-
-    categorias.forEach(([, valor], indice) => {
+    const gradientes = categorias.map(([, valor], indice) => {
         const percentual = total ? (valor / total) * 100 : 0;
         const inicio = acumulado;
         acumulado += percentual;
-
-        gradientes.push(
-            `${cores[indice % cores.length]} ${inicio}% ${acumulado}%`
-        );
+        return `${cores[indice % cores.length]} ${inicio}% ${acumulado}%`;
     });
 
     elemento("graficoCategorias").style.background = total
@@ -152,44 +143,22 @@ function renderizarRelatorio() {
         `${filtradas.length} despesa(s) encontrada(s) no período selecionado.`;
 }
 
-function escaparHtml(valor) {
-    return String(valor).replace(/[&<>"']/g, caractere => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-    })[caractere]);
-}
-
 async function carregarTransacoes() {
     elemento("statusApi").textContent = "Carregando transações da API...";
 
     try {
         const resposta = await fetch(API_URL);
-
-        if (!resposta.ok) {
-            throw new Error(`A API respondeu com status ${resposta.status}.`);
-        }
+        if (!resposta.ok) throw new Error(`A API respondeu com status ${resposta.status}.`);
 
         const dados = await resposta.json();
-
-        transacoes = Array.isArray(dados)
-            ? dados
-            : (dados.content || dados.data || []);
-
+        transacoes = Array.isArray(dados) ? dados : (dados.content || dados.data || []);
         renderizarRelatorio();
     } catch (erro) {
         console.error("Erro ao carregar transações:", erro);
-
         elemento("statusApi").textContent =
-            "Não foi possível carregar os dados. Verifique se o backend está rodando e se o acesso à API está permitido.";
-
-        elemento("listaCategorias").innerHTML =
-            "<p>Erro ao carregar os dados da API.</p>";
-
-        elemento("legendaCategorias").innerHTML =
-            "<p>Não foi possível carregar os dados.</p>";
+            "Não foi possível carregar os dados. Verifique o backend e o acesso à API.";
+        elemento("listaCategorias").innerHTML = "<p>Erro ao carregar os dados da API.</p>";
+        elemento("legendaCategorias").innerHTML = "<p>Não foi possível carregar os dados.</p>";
     }
 }
 
@@ -197,12 +166,10 @@ elemento("btnFiltrar").addEventListener("click", renderizarRelatorio);
 
 elemento("btnResumoAnual").addEventListener("click", () => {
     const ano = elemento("anoFinal").value;
-
     elemento("mesInicial").value = "0";
     elemento("anoInicial").value = ano;
     elemento("mesFinal").value = "11";
     elemento("anoFinal").value = ano;
-
     renderizarRelatorio();
 });
 
